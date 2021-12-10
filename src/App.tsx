@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { fetchAllData } from './api'
 import './App.css'
 import Today from './components/Today'
@@ -7,23 +7,32 @@ import { AllForecastDataType } from './types'
 function App() {
   const [city, setCity] = useState('Vancouver')
   const [weatherData, setWeatherData] = useState<AllForecastDataType>()
+  const [location, setLocation] = useState<GeolocationCoordinates>()
 
-  useEffect(() => {
-    fetchAllData(city).then(function (res) {
+
+  const fetchData = useCallback(() => {
+    fetchAllData(city).then(res => {
       setWeatherData(res)
     })
-
-    navigator.geolocation.getCurrentPosition((position) => {
-      console.log("Got position", position.coords)
-    })
+  
   }, [city])
 
-  console.log('today data -> ', weatherData?.today)
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log("Got position", position.coords)
+      setLocation(position.coords)
+    })
+
+    fetchData()
+
+  }, [fetchData])
 
   return (
     <div className="App">
-      <h1>Hello, is it me you're looking for?</h1>
-      <Today data={weatherData?.today} />
+      <form>
+        <input type='text' name='location' placeholder='Search for a location' />
+      </form>
+      {weatherData && <Today data={weatherData?.today} />}
     </div>
   )
 }

@@ -1,8 +1,7 @@
 export interface TodayForecastDataType {
-  data: {
-    base: string,
-    clouds: {
-      all: number
+    base?: string,
+    clouds?: {
+      all?: number
     },
     cod?: number,
     coord: CoordinatesInterface,
@@ -11,11 +10,10 @@ export interface TodayForecastDataType {
     main: MainForecastDataType,
     name: string,
     sys: SysDataType,
-    timezone: number,
-    visibility: number,
+    timezone?: number,
+    visibility?: number,
     weather: WeatherDataType[],
     wind: WindDataType
-  }
 }
 
 export interface MainForecastDataType {
