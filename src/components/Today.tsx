@@ -3,6 +3,7 @@ import Details from './Details'
 import { WeatherIcon } from 'weather-react-icons'
 import { TodayForecastDataType } from '../types'
 import { 
+  isDayTime,
   getFormattedTime,
   getFormattedTemperature,
   getFormattedUnit,
@@ -11,6 +12,7 @@ import {
 import styles from './Today.module.css'
 
 const Today = ({ data }: { data: TodayForecastDataType }) => {
+  const dayTime = data.sys.sunset && isDayTime(data.sys.sunset)
   return (
     <>
       <div className={styles.location}>
@@ -23,7 +25,7 @@ const Today = ({ data }: { data: TodayForecastDataType }) => {
           iconId={data.weather[0].id}
           name='owm'
           className={styles.icon}
-          night
+          night={!dayTime}
         />
 
         <div className={styles.temperature}>

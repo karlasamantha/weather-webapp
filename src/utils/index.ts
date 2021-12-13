@@ -40,3 +40,9 @@ export const getFormattedTemperature = (temperature: number): string => {
 export const getFormattedUnit = (quantity: number, unit: string): string => {
   return `${quantity.toString()}${unit}`
 }
+
+export const isDayTime = (sunsetTimestamp: number): boolean => {
+  const hours = new Date().getHours()
+  const sunsetHour = new Date(sunsetTimestamp * 1000).getHours()
+  return hours > 6 && hours < sunsetHour ? true : false
+}
