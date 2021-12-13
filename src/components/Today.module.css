@@ -1,3 +1,50 @@
+.location {
+  margin: 1.2rem 0;
+}
+
+.location h2 {
+  margin-bottom: 6px;
+}
+
+.location h3 {
+  margin: 0;
+  font-size: var(--xsmall);
+  font-weight: 400;
+}
+
+.forecast {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin: 2.5rem 0;
+}
+
 .icon {
-  font-size: 3rem;
+  font-size: 5rem;
+}
+
+.temperature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.temperature h1 {
+  margin: 0;
+  font-size: var(--large);
+}
+
+.temperature span {
+  display: block;
+  font-size: var(--small);
+}
+
+.details {
+  margin: 1.2rem 0;
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
 }
