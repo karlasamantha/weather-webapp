@@ -12,7 +12,8 @@ import {
 import styles from './Today.module.css'
 
 const Today = ({ data }: { data: TodayForecastDataType }) => {
-  const dayTime = data.sys.sunset && isDayTime(data.sys.sunset)
+  // TODO: add these timestamps to a store
+  const dayTime = (data.sys.sunrise && data.sys.sunset) && isDayTime(data.sys.sunrise, data.sys.sunset)
   return (
     <>
       <div className={styles.location}>

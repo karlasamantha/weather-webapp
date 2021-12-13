@@ -43,10 +43,11 @@ export const getFormattedUnit = (quantity: number, unit: string): string => {
   return `${quantity.toString()}${unit}`
 }
 
-export const isDayTime = (sunsetTimestamp: number): boolean => {
+export const isDayTime = (sunriseTimestamp: number, sunsetTimestamp: number): boolean => {
   const hours = new Date().getHours()
+  const sunriseHour = new Date(sunriseTimestamp * 1000).getHours()
   const sunsetHour = new Date(sunsetTimestamp * 1000).getHours()
-  return hours > 6 && hours < sunsetHour ? true : false
+  return hours > sunriseHour && hours < sunsetHour ? true : false
 }
 
 export const getFormattedWeekday = (timestamp: number): string => {
