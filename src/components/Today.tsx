@@ -29,7 +29,7 @@ const Today = ({ data }: { data: TodayForecastDataType }) => {
         />
 
         <div className={styles.temperature}>
-          <h1>{Math.floor(data.main.temp)}&deg;</h1>
+          <h1>{Math.round(data.main.temp)}&deg;</h1>
           <span>{data.weather[0].description}</span>
         </div>
       </div>

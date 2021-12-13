@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { DebounceInput } from 'react-debounce-input'
 import { fetchAllData } from './api'
-import './App.css'
+import FiveDays from './components/FiveDays'
 import Today from './components/Today'
 import { AllForecastDataType } from './types'
+import './App.css'
 
 function App() {
   const [city, setCity] = useState('Vancouver')
@@ -41,7 +42,12 @@ function App() {
         />
         {/* TODO: autocomplete */}
       </form>
-      {weatherData && <Today data={weatherData?.today} />}
+      {weatherData && (
+        <>
+          <Today data={weatherData?.today} />
+          <FiveDays data={weatherData?.fiveDays} />
+        </>
+      )}
     </div>
   )
 }

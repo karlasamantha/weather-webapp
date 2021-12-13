@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.card {
+  border: 1px solid black;
+  border-radius: 6px;
+  padding: 0.75rem 0.5rem 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card > * {
+  margin-bottom: 0.75rem;
+}
+
+.card:last-child {
+  margin-bottom: 0;
+}
+
+.icon {
+  font-size: var(--medium);
+}

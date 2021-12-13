@@ -1,3 +1,5 @@
+import { FiveDaysForecastDataType, TodayForecastDataType } from "../types"
+
 const months = [
   'January',
   'February',
@@ -34,7 +36,7 @@ export const getFormattedTime = (timestamp: number): string => {
 }
 
 export const getFormattedTemperature = (temperature: number): string => {
-  return `${Math.floor(temperature).toString()}°`
+  return `${Math.round(temperature).toString()}°`
 }
 
 export const getFormattedUnit = (quantity: number, unit: string): string => {
@@ -45,4 +47,47 @@ export const isDayTime = (sunsetTimestamp: number): boolean => {
   const hours = new Date().getHours()
   const sunsetHour = new Date(sunsetTimestamp * 1000).getHours()
   return hours > 6 && hours < sunsetHour ? true : false
+}
+
+export const getFormattedWeekday = (timestamp: number): string => {
+  const day = new Date(timestamp * 1000).getDay()
+  return `${days[day]}`
+}
+
+export const groupForecastByDay = (data: FiveDaysForecastDataType) => {
+  // setting to any to bypass tslint error
+  return data.list.reduce((group: any, item: any) => {
+    const date = item.dt_txt.substring(0, 10)
+    group[date] = group[date] || []
+    group[date].push(item)
+    return group
+  }, {})
+}
+
+export const calculateAverage = (arr: number[]) => {
+  return Math.round(arr.reduce((acc, next) => acc + next) / arr.length)
+}
+
+export const getAveragePerDay = 
+  (
+    forecast: TodayForecastDataType[], 
+    min: number[] = [],
+    max: number[] = [],
+    wind: number[] = [],
+    humidity: number[] = [],
+  ) => {
+  // eslint-disable-next-line array-callback-return
+  forecast.map((item: TodayForecastDataType) => {
+    min.push(item.main.temp_min);
+    max.push(item.main.temp_max);
+    wind.push(item.wind.speed);
+    humidity.push(item.main.humidity)
+  })
+
+  const minAvg: number = calculateAverage(min)
+  const maxAvg: number = calculateAverage(max)
+  const windAvg: number = calculateAverage(wind)
+  const humidityAvg: number = calculateAverage(humidity)
+
+  return {minAvg, maxAvg, windAvg, humidityAvg}
 }
