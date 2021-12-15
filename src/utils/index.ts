@@ -1,4 +1,4 @@
-import { FiveDaysForecastDataType, TodayForecastDataType } from "../types"
+import { FiveDaysForecastDataType, ForecastPerDayType } from "../types"
 
 const months = [
   'January',
@@ -32,7 +32,8 @@ export const getTodayDate = (): string => {
 
 export const getFormattedTime = (timestamp: number): string => {
   const date = new Date(timestamp * 1000)
-  return `${date.getHours()}:${date.getMinutes()}`
+  const minutes = date.getMinutes()
+  return `${date.getHours()}:${minutes < 10 ? minutes.toString().padStart(2, '0') : minutes}`
 }
 
 export const getFormattedTemperature = (temperature: number): string => {
@@ -71,14 +72,14 @@ export const calculateAverage = (arr: number[]) => {
 
 export const getAveragePerDay = 
   (
-    forecast: TodayForecastDataType[], 
+    forecast: ForecastPerDayType[], 
     min: number[] = [],
     max: number[] = [],
     wind: number[] = [],
     humidity: number[] = [],
   ) => {
   // eslint-disable-next-line array-callback-return
-  forecast.map((item: TodayForecastDataType) => {
+  forecast.map((item: ForecastPerDayType) => {
     min.push(item.main.temp_min);
     max.push(item.main.temp_max);
     wind.push(item.wind.speed);

@@ -38,12 +38,13 @@ const Today = ({ data }: { data: TodayForecastDataType }) => {
       <hr />
 
       <div className={styles.details}>
+        {/* TODO: refactor this */}
         <Details info={getFormattedTemperature(data.main.temp_max)} desc='High' />
         <Details info={getFormattedUnit(data.wind.speed, 'km/h')} desc='Wind' />
-        {data.sys.sunrise && <Details info={getFormattedTime(data.sys.sunrise)} desc='Sunrise' />}
+        {data.sys.sunrise ? <Details info={getFormattedTime(data.sys.sunrise)} desc='Sunrise' /> : null}
         <Details info={getFormattedTemperature(data.main.temp_min)} desc='Low' />
         <Details info={getFormattedUnit(data.main.humidity, '%')} desc='Humidity' />
-        {data.sys.sunset && <Details info={getFormattedTime(data.sys.sunset)} desc='Sunset' />}
+        {data.sys.sunset ? <Details info={getFormattedTime(data.sys.sunset)} desc='Sunset' /> : null}
       </div>
 
       <hr />

@@ -18,17 +18,15 @@ const FiveDays = ({ data }: { data: FiveDaysForecastDataType }) => {
       <h3>Next 5 Days</h3>
       {/* TODO: fix any type here */}
       <div className={styles.container}>
-        {fiveDays.map((day: any, index: number) => {
-          return (
+        {fiveDays.map((day: any, index: number) => (
             <DayAverage
               {...getAveragePerDay(day)}
               key={index}
-              timestamp={day[0].dt}
-              icon={day[0].weather[0].id}
-              // TODO: find better way to pass icon
+              timestamp={day[index].dt}
+              icon={day[index].weather[0].id}
             />
           )
-        })}
+        )}
       </div>
     </div>
   )
