@@ -5,15 +5,15 @@ import styles from './DayAverage.module.css'
 
 const DayAverage = (
   {
-    minAvg,
-    maxAvg,
+    minTemp,
+    maxTemp,
     windAvg,
     humidityAvg,
     timestamp,
     icon,
   }:{
-    minAvg: number,
-    maxAvg: number,
+    minTemp: number,
+    maxTemp: number,
     windAvg: number,
     humidityAvg: number
     timestamp: number
@@ -28,7 +28,7 @@ const DayAverage = (
           name='owm'
           className={styles.icon}
         />
-        <span>{`${minAvg}-${maxAvg}`}&deg;</span>
+        <span>{`${minTemp}-${maxTemp}`}&deg;</span>
       </div>
     </div>
   )

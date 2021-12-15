@@ -85,10 +85,10 @@ export const getAveragePerDay =
     humidity.push(item.main.humidity)
   })
 
-  const minAvg: number = calculateAverage(min)
-  const maxAvg: number = calculateAverage(max)
+  const minTemp: number = Math.round(Math.min(...min))
+  const maxTemp: number = Math.round(Math.max(...max))
   const windAvg: number = calculateAverage(wind)
   const humidityAvg: number = calculateAverage(humidity)
 
-  return {minAvg, maxAvg, windAvg, humidityAvg}
+  return {minTemp, maxTemp, windAvg, humidityAvg}
 }

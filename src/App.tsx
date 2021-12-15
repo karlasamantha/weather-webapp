@@ -1,10 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { DebounceInput } from 'react-debounce-input'
+import ReactGoogleAutocomplete from 'react-google-autocomplete'
+import ReactLoading from 'react-loading'
 import { fetchAllData } from './api'
 import FiveDays from './components/FiveDays'
 import Today from './components/Today'
 import { AllForecastDataType } from './types'
 import './App.css'
+
+const PLACES_API_KEY = process.env.REACT_APP_GOOGLE_PLACES_API
 
 function App() {
   const [city, setCity] = useState('Vancouver')
@@ -31,23 +34,18 @@ function App() {
   return (
     <div>
       <form>
-        <DebounceInput
-          minLength={3}
-          debounceTimeout={300}
-          type='text'
-          name='location'
-          placeholder='Search for a location'
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-        />
+        {/* <ReactGoogleAutocomplete
+          apiKey={PLACES_API_KEY}
+          
+        /> */}
         {/* TODO: autocomplete */}
       </form>
-      {weatherData && (
+      {weatherData ? (
         <>
           <Today data={weatherData?.today} />
           <FiveDays data={weatherData?.fiveDays} />
         </>
-      )}
+      ): <ReactLoading type='spin' height={45} width={45} color='black'/>}
     </div>
   )
 }
