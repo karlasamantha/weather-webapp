@@ -1,5 +1,6 @@
 :root {
   /* Typography */
+  --tiny: 0.75rem;
   --xsmall: 1rem;
   --small: 1.2rem;
   --medium: 2rem;

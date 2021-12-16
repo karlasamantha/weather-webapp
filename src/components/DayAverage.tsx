@@ -1,6 +1,6 @@
 import React from 'react'
 import { WeatherIcon } from 'weather-react-icons'
-import { getFormattedUnit, getFormattedWeekday, } from '../utils'
+import { getFormattedWeekday, } from '../utils'
 import styles from './DayAverage.module.css'
 
 const DayAverage = (
@@ -28,7 +28,25 @@ const DayAverage = (
           name='owm'
           className={styles.icon}
         />
-        <span>{`${minTemp}-${maxTemp}`}&deg;</span>
+        <span className={styles.minmax}>{`${minTemp}-${maxTemp}`}&deg;</span>
+
+        {/* We only render these elements on larger screens */}
+        <span className={styles.min}>
+          {`${minTemp}`}&deg;
+          <label>Low</label>
+        </span>
+        <span className={styles.max}>
+          {`${maxTemp}`}&deg;
+          <label>High</label>
+        </span>
+        <span className={styles.wind}>
+          {windAvg}km/h
+          <label>Wind</label>
+        </span>
+        <span className={styles.humidity}>
+          {humidityAvg}%
+          <label>Humidity</label>
+        </span>
       </div>
     </div>
   )

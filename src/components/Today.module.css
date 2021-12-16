@@ -1,3 +1,8 @@
+.today {
+  display: flex;
+  flex-direction: column;
+}
+
 .location {
   margin: 1.2rem 0;
 }
@@ -47,4 +52,27 @@
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-around;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 1.2rem 0;
+}
+
+@media screen and (min-width: 1024px) {
+  .today {
+    flex-direction: row;
+  }
+
+  .forecast {
+    margin: 0 2.5rem;
+    flex: 1;
+  }
+
+  .details {
+    border-top: none;
+    border-bottom: none;
+    border-left: 1px solid black;
+    padding: 0;
+    padding-left: 1.2rem;
+    flex: 1;
+  }
 }

@@ -21,33 +21,32 @@ const Today = ({ data }: { data: TodayForecastDataType }) => {
         <h3>{getTodayDate()}</h3>
       </div>
 
-      <div className={styles.forecast}>
-        <WeatherIcon 
-          iconId={data.weather[0].id}
-          name='owm'
-          className={styles.icon}
-          night={!dayTime}
-        />
+      <div className={styles.today}>
+        <div className={styles.forecast}>
+          <WeatherIcon 
+            iconId={data.weather[0].id}
+            name='owm'
+            className={styles.icon}
+            night={!dayTime}
+          />
 
-        <div className={styles.temperature}>
-          <h1>{Math.round(data.main.temp)}&deg;</h1>
-          <span>{data.weather[0].description}</span>
+          <div className={styles.temperature}>
+            <h1>{Math.round(data.main.temp)}&deg;</h1>
+            <span>{data.weather[0].description}</span>
+          </div>
         </div>
+
+        <div className={styles.details}>
+          {/* TODO: refactor this */}
+          <Details info={getFormattedTemperature(data.main.temp_max)} desc='High' />
+          <Details info={getFormattedUnit(data.wind.speed, 'km/h')} desc='Wind' />
+          {data.sys.sunrise ? <Details info={getFormattedTime(data.sys.sunrise)} desc='Sunrise' /> : null}
+          <Details info={getFormattedTemperature(data.main.temp_min)} desc='Low' />
+          <Details info={getFormattedUnit(data.main.humidity, '%')} desc='Humidity' />
+          {data.sys.sunset ? <Details info={getFormattedTime(data.sys.sunset)} desc='Sunset' /> : null}
+        </div>
+
       </div>
-
-      <hr />
-
-      <div className={styles.details}>
-        {/* TODO: refactor this */}
-        <Details info={getFormattedTemperature(data.main.temp_max)} desc='High' />
-        <Details info={getFormattedUnit(data.wind.speed, 'km/h')} desc='Wind' />
-        {data.sys.sunrise ? <Details info={getFormattedTime(data.sys.sunrise)} desc='Sunrise' /> : null}
-        <Details info={getFormattedTemperature(data.main.temp_min)} desc='Low' />
-        <Details info={getFormattedUnit(data.main.humidity, '%')} desc='Humidity' />
-        {data.sys.sunset ? <Details info={getFormattedTime(data.sys.sunset)} desc='Sunset' /> : null}
-      </div>
-
-      <hr />
     </>
   )
 }
