@@ -1,51 +1,66 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import ReactGoogleAutocomplete from 'react-google-autocomplete'
+import React, { useEffect, useState } from 'react'
 import ReactLoading from 'react-loading'
+import { DebounceInput } from 'react-debounce-input'
 import { fetchAllData } from './api'
 import FiveDays from './components/FiveDays'
 import Today from './components/Today'
 import { AllForecastDataType } from './types'
 import './App.css'
 
-const PLACES_API_KEY = process.env.REACT_APP_GOOGLE_PLACES_API
-
 function App() {
-  const [city, setCity] = useState('Vancouver')
+  const [city, setCity] = useState('')
   const [weatherData, setWeatherData] = useState<AllForecastDataType>()
-  const [location, setLocation] = useState<GeolocationCoordinates>()
-
-  const fetchData = useCallback(() => {
-    fetchAllData(city).then(res => {
-      setWeatherData(res)
-    })
-  
-  }, [city])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<any>()
 
   useEffect(() => {
+    setIsLoading(true)
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log("Got position", position.coords)
-      setLocation(position.coords)
+      fetchAllData(position.coords)
+      .then(res => {
+        setWeatherData(res)
+      })
+      .catch(err => {
+        setError(err)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
     })
 
-    fetchData()
+  }, [])
 
-  }, [fetchData])
+  useEffect(() => {
+    if (!city) return
+    setIsLoading(true)
+  
+    try {
+      fetchAllData(city)
+      .then(res => {
+        setWeatherData(res)
+      })
+      setIsLoading(false)     
+    } catch (error) {
+      console.log(error)
+      setError(error)
+    }
+  }, [city])
 
   return (
     <div>
-      <form>
-        {/* <ReactGoogleAutocomplete
-          apiKey={PLACES_API_KEY}
-          
-        /> */}
-        {/* TODO: autocomplete */}
-      </form>
+      <DebounceInput
+        minLength={4}
+        debounceTimeout={350}
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+        className='search-input'
+      />
       {weatherData ? (
         <>
           <Today data={weatherData?.today} />
           <FiveDays data={weatherData?.fiveDays} />
         </>
-      ): <ReactLoading type='spin' height={45} width={45} color='black'/>}
+      ) : isLoading ? <ReactLoading type='spin' height={45} width={45} color='black'/> : null}
     </div>
   )
 }
