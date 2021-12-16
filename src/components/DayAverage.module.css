@@ -5,12 +5,13 @@
 }
 
 .card {
-  border: 1px solid black;
+  border: 1px solid var(--border-gray);
   border-radius: 6px;
   padding: 0.75rem 0.5rem 0 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: var(--white);
 }
 
 .card > * {
@@ -23,6 +24,7 @@
 
 .icon {
   font-size: var(--medium);
+  color: var(--white);
 }
 
 .min,
@@ -42,11 +44,11 @@
     justify-content: space-around;
     border-radius: 0;
     border: 0;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--border-gray);
   }
 
   .container:first-child {
-    border-top: 1px solid black;
+    border-top: 1px solid var(--border-gray);
   }
 
   .minmax {
@@ -60,9 +62,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: var(--white);
+    font-weight: 500;
   }
 
   label {
     font-size: var(--tiny);
+    color: var(--light-gray);
   }
 }
