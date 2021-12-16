@@ -1,6 +1,6 @@
 import React from 'react'
 import { WeatherIcon } from 'weather-react-icons'
-import { getFormattedWeekday, } from '../utils'
+import { getFormattedWeekday } from '../utils'
 import styles from './DayAverage.module.css'
 
 const DayAverage = (

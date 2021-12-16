@@ -6,6 +6,7 @@ import FiveDays from './components/FiveDays'
 import Today from './components/Today'
 import { AllForecastDataType } from './types'
 import './App.css'
+import ErrorComponent from './components/ErrorComponent'
 
 function App() {
   const [city, setCity] = useState('')
@@ -41,7 +42,6 @@ function App() {
       })
       setIsLoading(false)     
     } catch (error) {
-      console.log(error)
       setError(error)
     }
   }, [city])
@@ -54,13 +54,15 @@ function App() {
         value={city}
         onChange={(e) => setCity(e.target.value)}
         className='search-input'
+        placeholder='Search for a location'
       />
       {weatherData ? (
         <>
           <Today data={weatherData?.today} />
           <FiveDays data={weatherData?.fiveDays} />
         </>
-      ) : isLoading ? <ReactLoading type='spin' height={45} width={45} color='black'/> : null}
+      ) : isLoading ? 
+        <ReactLoading type='spin' height={45} width={45} color='black'/> : <ErrorComponent error={error} />}
     </div>
   )
 }
